@@ -1,37 +1,61 @@
+import { useMutation, useQuery } from '@apollo/client';
 import { useState } from 'react';
-import reactLogo from './assets/react.svg';
+import { FIND, UPDATE } from './graphql/demo';
 import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0);
+const App = () => {
+  const [name, setName] = useState('');
+  const [desc, setDesc] = useState('');
+  const { loading, data } = useQuery(FIND, {
+    variables: { id: 'dada' },
+  });
+
+  const [update] = useMutation(UPDATE);
+
+  const onChangeNameHandler = (v: React.ChangeEvent<HTMLInputElement>) => {
+    setName(v.target.value);
+  };
+  const onChangeDescHandler = (v: React.ChangeEvent<HTMLInputElement>) => {
+    setDesc(v.target.value);
+  };
+
+  const onClickHandler = () => {
+    update({
+      variables: {
+        id: 'dada',
+        params: {
+          name,
+          desc,
+          avatar: 'avatar',
+        },
+      },
+    });
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://react.dev" target="_blank" rel="noreferrer">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button type="button" onClick={() => setCount((prevCount) => prevCount + 1)}>
-          count is
-          {' '}
-          {count}
-        </button>
-        <p>
-          Edit
-          {' '}
-          <code>src/App.tsx</code>
-          {' '}
-          and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+    <div>
+      <p>
+        data:
+        {JSON.stringify(data)}
       </p>
-    </>
+
+      {JSON.stringify(loading)}
+      <p>{loading}</p>
+
+      <p>
+        name:
+        <input onChange={onChangeNameHandler} />
+      </p>
+      <p>
+        desc:
+        <input onChange={onChangeDescHandler} />
+      </p>
+
+      <button type="button" onClick={onClickHandler}>
+        btn
+      </button>
+    </div>
   );
-}
+};
 
 export default App;
