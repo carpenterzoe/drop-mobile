@@ -1,5 +1,5 @@
-import { useCallback, useState } from "react";
-import useMount from "./useMount";
+import { useCallback, useState } from 'react';
+import useMount from './useMount';
 
 /**
  * interface 和 type
@@ -13,12 +13,11 @@ interface IOptions {
   onError?: (err: unknown) => void,
 }
 
-
 /**
  * 组件初始化，发送请求获取数据
  * @param service 请求fn
  * @param params 请求参数
- * @returns 
+ * @returns
  */
 const useRequest = (
   service: (params: Record<string, string>) => Promise<unknown>,
@@ -32,35 +31,37 @@ const useRequest = (
   // 只有依赖的 service 更新时，才重新创建
   const init = useCallback(
     (curParams: Record<string, string>) => {
-      setLoading(true)
+      setLoading(true);
 
       // 这里 return 是为了外部调用 init时，可以直接 .then
       return service(curParams).then((res) => {
-        setData(res)
-        options.onSuccess?.(res)
+        setData(res);
+        if (options.onSuccess) {
+          options.onSuccess(res);
+        }
       })
-      .catch((err) => {
-        options.onError?.(err)
-      })
-      .finally(() => {
-        setLoading(false)
-      })
+        .catch((err) => {
+          options.onError?.(err);
+        })
+        .finally(() => {
+          setLoading(false);
+        });
     },
-    [service]
-  )
+    [service],
+  );
 
   // 初始化时执行
   useMount(() => {
     if (!options.manual) {
-      init(options.params)
+      init(options.params);
     }
-  })
+  });
 
   // 手动触发
   // init 在箭头函数后面直接 return，init返回是 promise，这样外部调用时，可以直接 .then
-  const run = (runParams: Record<string, string>) => init(runParams)
+  const run = (runParams: Record<string, string>) => init(runParams);
   // 所以现在 外部调用时，既可以传 onSuccess, onError, 也可以 .then
 
   return { loading, data, run };
-}
+};
 export default useRequest;
