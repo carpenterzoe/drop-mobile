@@ -1,23 +1,21 @@
-import { useMutation, useQuery } from '@apollo/client';
+import * as classNames from 'classnames';
+import {
+  Button, Form, Input, ImageUploader,
+} from 'antd-mobile';
+
+import { useMutation } from '@apollo/client';
 import { useState } from 'react';
-import { FIND, UPDATE } from './graphql/demo';
+import { UPDATE } from './graphql/demo';
 import './App.css';
+import { useUploadOSS } from './hooks/useUploadOSS';
+
+import styles from './App.module.less';
 
 const App = () => {
-  const [name, setName] = useState('');
-  const [desc, setDesc] = useState('');
-  const { loading, data } = useQuery(FIND, {
-    variables: { id: 'dada' },
-  });
-
+  const uploadHandler = useUploadOSS();
+  const [name] = useState('');
+  const [desc] = useState('');
   const [update] = useMutation(UPDATE);
-
-  const onChangeNameHandler = (v: React.ChangeEvent<HTMLInputElement>) => {
-    setName(v.target.value);
-  };
-  const onChangeDescHandler = (v: React.ChangeEvent<HTMLInputElement>) => {
-    setDesc(v.target.value);
-  };
 
   const onClickHandler = () => {
     update({
@@ -33,27 +31,36 @@ const App = () => {
   };
 
   return (
-    <div>
-      <p>
-        data:
-        {JSON.stringify(data)}
-      </p>
-
-      {JSON.stringify(loading)}
-      <p>{loading}</p>
-
-      <p>
-        name:
-        <input onChange={onChangeNameHandler} />
-      </p>
-      <p>
-        desc:
-        <input onChange={onChangeDescHandler} />
-      </p>
-
-      <button type="button" onClick={onClickHandler}>
-        btn
-      </button>
+    <div className={styles.container}>
+      <Form
+        className={classNames(styles.form, styles.formPadding)}
+        layout="horizontal"
+        onFinish={onClickHandler}
+        footer={(
+          <Button block type="submit" color="primary" size="large">
+            提交
+          </Button>
+      )}
+      >
+        <Form.Item
+          name="name"
+          label="姓名"
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="desc"
+          label="描述"
+        >
+          <Input />
+        </Form.Item>
+        <Form.Item
+          name="actor"
+          label="头像"
+        >
+          <ImageUploader upload={uploadHandler} />
+        </Form.Item>
+      </Form>
     </div>
   );
 };
