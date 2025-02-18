@@ -3,7 +3,7 @@ import * as md5 from 'md5';
 import { Button, Form, Input } from 'antd-mobile';
 import { EyeInvisibleOutline, EyeOutline } from 'antd-mobile-icons';
 import { useMutation } from '@apollo/client';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { STUDENT_LOGIN } from '@/graphql/user';
 import { showFail, showSuccess } from '@/utils';
 import { AUTH_TOKEN } from '@/utils/constants';
@@ -94,6 +94,10 @@ const Login = () => {
           />
         </Form.Item>
       </Form>
+      <div>
+        没有账号？去
+        <Link to="/register">注册</Link>
+      </div>
     </div>
   );
 };

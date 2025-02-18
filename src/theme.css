@@ -1,0 +1,4 @@
+/* antd mobile覆盖主题色，需要2个root */
+:root:root {
+  --adm-color-primary: #01979a;
+}

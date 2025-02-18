@@ -1,14 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useGoTo } from '@/hooks';
+import { ROUTE_KEY } from '@/routes/menus';
+import { Button } from 'antd-mobile';
 
 const Home = () => {
-  const [state] = useState();
+  const { go } = useGoTo();
 
-  useEffect(() => {
-    console.log(state);
-  }, []);
   return (
     <div>
-      Home
+      <Button onClick={() => go(ROUTE_KEY.MY)}>去编辑个人信息</Button>
     </div>
   );
 };
