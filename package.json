@@ -19,7 +19,8 @@
     "md5": "2.3.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-router-dom": "6.7.0"
+    "react-router-dom": "6.7.0",
+    "reset-css": "^5.0.2"
   },
   "devDependencies": {
     "@apollo/server": "4.2.2",
