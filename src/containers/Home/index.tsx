@@ -1,13 +1,19 @@
-import { useGoTo } from '@/hooks';
-import { ROUTE_KEY } from '@/routes/menus';
-import { Button } from 'antd-mobile';
+import { SearchBar } from 'antd-mobile';
+import { useState } from 'react';
+import style from './index.module.less';
 
 const Home = () => {
-  const { go } = useGoTo();
-
+  const [name, setName] = useState('');
+  console.log('name: ', name);
+  const onSearchHandler = (val: string) => {
+    setName(val);
+  };
   return (
-    <div>
-      <Button onClick={() => go(ROUTE_KEY.MY)}>去编辑个人信息</Button>
+    <div className={style.container}>
+      <SearchBar
+        placeholder="搜索课程试试"
+        onSearch={onSearchHandler}
+      />
     </div>
   );
 };
