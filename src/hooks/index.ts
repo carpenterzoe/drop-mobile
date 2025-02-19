@@ -25,7 +25,7 @@ export const useGoTo = () => {
     }
 
     const route = getRouteByKey(pageKey);
-    if (route && route.path) {
+    if (route) {
       // 纯跳转，无参数
       if (!params) {
         nav(`/${route.path}`); // 如果直接传 pathname，没有斜杠，会变成相对地址 比如 /home/my

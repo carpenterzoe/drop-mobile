@@ -2,7 +2,8 @@ interface IRoute {
   path: string;
   name: string;
   icon?: React.ReactNode;
-  hideInMenu?: boolean;
+  isMenu?: boolean;
+  hideHeader?: boolean;
 }
 
 // 这里路由用key值匹配，是为了不同地方跳转时，只要用变量即可
@@ -20,12 +21,13 @@ export const ROUTE_KEY = {
 export const ROUTE_CONFIG: Record<string, IRoute> = {
   [ROUTE_KEY.HOME]: {
     path: '', // 这里没有斜杠，因为Layout已经写了
-    name: '首页',
+    name: '精品课程',
+    isMenu: true,
   },
   [ROUTE_KEY.MY]: {
     path: 'my',
-    name: '个人信息',
-    hideInMenu: true,
+    name: '我的',
+    isMenu: true,
   },
 };
 
