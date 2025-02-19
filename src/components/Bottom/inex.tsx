@@ -2,6 +2,7 @@ import { TabBar } from 'antd-mobile';
 import { routes } from '@/routes/menus';
 import { useGoTo, useMatchedRoute } from '@/hooks';
 import style from './index.module.less';
+import SvgWrapper from '../SvgWrapper';
 // import SvgWrapper from '../SvgWrapper';
 
 /**
@@ -14,12 +15,12 @@ const Bottom = () => {
   const onTabChangeHandler = (key: string) => {
     go(key);
   };
-  // const iconRender = (active: boolean, iconUrl?: string) => (
-  //   <SvgWrapper
-  //     src={iconUrl}
-  //     color={active ? '#01979a' : '#999999'}
-  //   />
-  // );
+  const iconRender = (active: boolean, iconUrl?: string) => (
+    <SvgWrapper
+      src={iconUrl}
+      color={active ? '#01979a' : '#999999'}
+    />
+  );
 
   // 只有标记isMenu的页面需要底部菜单
   if (!route?.isMenu) {
@@ -37,7 +38,7 @@ const Bottom = () => {
               <TabBar.Item
                 key={item.key}
                 title={item.name}
-                // icon={(active) => iconRender(active, item.icon)}
+                icon={(active) => iconRender(active, item.icon)}
               />
             ),
           )

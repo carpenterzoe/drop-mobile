@@ -1,3 +1,6 @@
+import mySvg from '@/assets/my.svg';
+import courseSvg from '@/assets/course.svg';
+
 interface IRoute {
   path: string;
   name: string;
@@ -23,11 +26,13 @@ export const ROUTE_CONFIG: Record<string, IRoute> = {
     path: '', // 这里没有斜杠，因为Layout已经写了
     name: '精品课程',
     isMenu: true,
+    icon: courseSvg,
   },
   [ROUTE_KEY.MY]: {
     path: 'my',
     name: '我的',
     isMenu: true,
+    icon: mySvg,
   },
 };
 
