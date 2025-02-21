@@ -2,7 +2,7 @@ import { GET_PRODUCT_TYPES, GET_PRODUCTS } from '@/graphql/product';
 import { DEFAULT_PAGE_SIZE, DEFAULT_TYPE } from '@/utils/constants';
 import { useLazyQuery, useQuery } from '@apollo/client';
 import { Toast } from 'antd-mobile';
-import { useEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 export const useProductTypes = () => {
   const { data, loading } = useQuery<TProductTypeQuery>(GET_PRODUCT_TYPES);
@@ -19,7 +19,12 @@ export const useProducts = (
 ) => {
   // 调get拿到的值，会被useLazyQuery自动放到data里，不需要自己手动set值
   // 可以看到return并未返回请求方法，只返回了data，外面也拿到了值
-  const [get, { data }] = useLazyQuery<TProductsQuery>(GET_PRODUCTS);
+  // 但如果要对data进行二次处理，还是需要重新set
+  const [get] = useLazyQuery<TProductsQuery>(GET_PRODUCTS);
+
+  const [data, setData] = useState<IProduct[]>([]);
+  const [hasMore, setHasMore] = useState(true);
+  const curPage = useRef(1); // 不需要在页面响应式的数据 可以useRef
 
   const init = async (pageNum = 1) => {
     const toast = Toast.show({
@@ -38,15 +43,35 @@ export const useProducts = (
       },
     });
     toast.close();
-    return res;
+    return res.data?.getProductsForH5.data || [];
+  };
+
+  const onRefreshHandler = async () => {
+    curPage.current = 1;
+    setHasMore(true);
+    const res = await init();
+    setData(res);
+  };
+
+  const onLoadMoreHandler = async () => {
+    const res = await init(curPage.current + 1);
+    if (res.length > 0) {
+      curPage.current += 1;
+      setData((old) => [...old, ...res]);
+      setHasMore(true);
+    } else {
+      setHasMore(false);
+    }
   };
 
   useEffect(() => {
-    init();
+    onRefreshHandler();
   }, [name, type]);
 
   return {
-    onRefresh: init,
-    data: data?.getProductsForH5.data,
+    data,
+    onRefresh: onRefreshHandler,
+    loadMore: onLoadMoreHandler,
+    hasMore,
   };
 };
