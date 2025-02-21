@@ -1,5 +1,5 @@
 import { useProducts } from '@/services/product';
-import { Grid } from 'antd-mobile';
+import { ErrorBlock, Grid } from 'antd-mobile';
 import ProductCard from '../ProductCard';
 import style from './index.module.less';
 
@@ -17,8 +17,10 @@ const ProductList = (
     type,
   }: IProps,
 ) => {
-  console.log(name, type);
-  const { data } = useProducts();
+  const { data } = useProducts(name, type);
+  if (data?.length === 0) {
+    return <ErrorBlock status="empty" />;
+  }
   return (
     <div className={style.container}>
       <Grid columns={2} gap={10}>

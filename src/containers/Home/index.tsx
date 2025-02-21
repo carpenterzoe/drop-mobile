@@ -7,7 +7,6 @@ import style from './index.module.less';
 const Home = () => {
   const [name, setName] = useState('');
   const [type, setType] = useState('');
-  console.log(name, type);
 
   const onSearchHandler = (val: string) => {
     setName(val);
@@ -23,7 +22,7 @@ const Home = () => {
         onSearch={onSearchHandler}
       />
       <TypeSelect onChange={onTypeChangeHandler} />
-      <ProductList name="" type="" />
+      <ProductList name={name} type={type} />
     </div>
   );
 };
