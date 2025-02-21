@@ -22,6 +22,11 @@ interface IProduct {
   cards?: ICard[];
 }
 
+interface IProductType {
+  key: string;
+  title: string;
+}
+
 type TProductTypeQuery = TBaseQuery<IProductType[]>;
 type TProductsQuery = TBaseQuery<IProduct[]>;
 type TProductQuery = TBaseQuery<IProduct>;

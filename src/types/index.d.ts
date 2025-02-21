@@ -15,4 +15,6 @@ interface IPage {
   total: number;
 }
 
-type TBaseQuery<T = null> = { [key: string]: { __typename?: 'Query', data: T, page: IPage, code: number, message: string } };
+type TBaseQuery<T = null> = {
+  [key: string]: { data: T, page: IPage, code: number, message: string }
+};

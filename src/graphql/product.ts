@@ -12,8 +12,8 @@ query getProductTypes{
 `;
 
 export const GET_PRODUCTS = gql`
-  query getProductsForH5($page: PageInput!, $latitude: Float!, $longitude: Float!, $name: String, $type: String) {
-    getProductsForH5(page: $page, latitude: $latitude, longitude: $longitude, name: $name, type: $type){
+  query getProductsForH5($page: PageInput!, $name: String, $type: String) {
+    getProductsForH5(page: $page, name: $name, type: $type){
       code
       message
       page {
@@ -32,7 +32,6 @@ export const GET_PRODUCTS = gql`
         stock
         status
         preferentialPrice
-        distance
         org {
           id
           name

@@ -1,6 +1,7 @@
 import { SearchBar } from 'antd-mobile';
 import { useState } from 'react';
 import TypeSelect from '@/components/TypeSelect';
+import ProductList from './components/ProductList';
 import style from './index.module.less';
 
 const Home = () => {
@@ -22,6 +23,7 @@ const Home = () => {
         onSearch={onSearchHandler}
       />
       <TypeSelect onChange={onTypeChangeHandler} />
+      <ProductList name="" type="" />
     </div>
   );
 };

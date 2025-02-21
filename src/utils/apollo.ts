@@ -21,7 +21,9 @@ const authLink = setContext((_, { headers }) => {
 
 const client = new ApolloClient({
   link: authLink.concat(httpLink),
-  cache: new InMemoryCache(), // graphql 提供的缓存
+  cache: new InMemoryCache({
+    addTypename: false,
+  }), // graphql 提供的缓存
 });
 
 export default client;
