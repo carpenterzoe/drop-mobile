@@ -46,6 +46,7 @@ export const useProducts = (
   }, [name, type]);
 
   return {
+    onRefresh: init,
     data: data?.getProductsForH5.data,
   };
 };

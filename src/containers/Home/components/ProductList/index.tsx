@@ -1,5 +1,5 @@
 import { useProducts } from '@/services/product';
-import { ErrorBlock, Grid } from 'antd-mobile';
+import { ErrorBlock, Grid, PullToRefresh } from 'antd-mobile';
 import ProductCard from '../ProductCard';
 import style from './index.module.less';
 
@@ -17,21 +17,23 @@ const ProductList = (
     type,
   }: IProps,
 ) => {
-  const { data } = useProducts(name, type);
+  const { data, onRefresh } = useProducts(name, type);
   if (data?.length === 0) {
     return <ErrorBlock status="empty" />;
   }
   return (
     <div className={style.container}>
-      <Grid columns={2} gap={10}>
-        {
+      <PullToRefresh onRefresh={onRefresh}>
+        <Grid columns={2} gap={10}>
+          {
           data?.map((item) => (
             <Grid.Item key={item.id}>
               <ProductCard data={item} />
             </Grid.Item>
           ))
         }
-      </Grid>
+        </Grid>
+      </PullToRefresh>
     </div>
   );
 };
