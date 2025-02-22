@@ -2,8 +2,8 @@ import { useProductsByOrgId } from '@/services/product';
 import {
   Card, Grid, Result, Image,
 } from 'antd-mobile';
-// import { ROUTE_KEY } from '@/routes/menus';
-// import { useGoTo } from '@/hooks';
+import { ROUTE_KEY } from '@/routes/menus';
+import { useGoTo } from '@/hooks';
 import style from './index.module.less';
 
 interface IProps {
@@ -17,11 +17,10 @@ const RecommendProducts = ({
   orgId,
 }: IProps) => {
   const data = useProductsByOrgId(orgId);
-  // const { go } = useGoTo();
+  const { go } = useGoTo();
 
   const goToProduct = (productId: string) => {
-    console.log('productId: ', productId);
-    // go(ROUTE_KEY.PRODUCT_INFO, { id: productId });
+    go(ROUTE_KEY.PRODUCT_INFO, { id: productId });
   };
   if (!data) {
     return <Result status="warning" title="提示" description="没有推荐的课程" />;

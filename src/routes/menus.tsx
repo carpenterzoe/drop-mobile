@@ -15,6 +15,7 @@ export const ROUTE_KEY = {
   HOME: 'home',
   MY: 'my',
   ORG_INFO: 'OrgInfo',
+  PRODUCT_INFO: 'productInfo',
 };
 
 /**
@@ -38,6 +39,11 @@ export const ROUTE_CONFIG: Record<string, IRoute> = {
   [ROUTE_KEY.ORG_INFO]: {
     path: 'orgInfo/:id',
     name: '门店详情',
+    isMenu: false,
+  },
+  [ROUTE_KEY.PRODUCT_INFO]: {
+    path: 'productInfo/:id',
+    name: '商品详情',
     isMenu: false,
   },
 };

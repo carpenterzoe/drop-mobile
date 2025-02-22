@@ -1,4 +1,6 @@
-import { GET_PRODUCT_TYPES, GET_PRODUCTS, GET_PRODUCTS_BY_ORG_ID } from '@/graphql/product';
+import {
+  GET_PRODUCT, GET_PRODUCT_TYPES, GET_PRODUCTS, GET_PRODUCTS_BY_ORG_ID,
+} from '@/graphql/product';
 import { DEFAULT_PAGE_SIZE, DEFAULT_TYPE } from '@/utils/constants';
 import { useLazyQuery, useQuery } from '@apollo/client';
 import { Toast } from 'antd-mobile';
@@ -109,4 +111,18 @@ export const useProductsByOrgId = (orgId: string) => {
   );
 
   return data?.getProductsByOrgIdForH5.data;
+};
+
+/**
+ * 获取单个商品
+ * @param id
+ */
+export const useProductInfo = (id?: string) => {
+  const { data, loading } = useQuery<TProductQuery>(GET_PRODUCT, {
+    variables: {
+      id,
+    },
+  });
+
+  return { data: data?.getProductInfo.data, loading };
 };
