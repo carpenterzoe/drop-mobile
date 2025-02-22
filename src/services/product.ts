@@ -1,4 +1,4 @@
-import { GET_PRODUCT_TYPES, GET_PRODUCTS } from '@/graphql/product';
+import { GET_PRODUCT_TYPES, GET_PRODUCTS, GET_PRODUCTS_BY_ORG_ID } from '@/graphql/product';
 import { DEFAULT_PAGE_SIZE, DEFAULT_TYPE } from '@/utils/constants';
 import { useLazyQuery, useQuery } from '@apollo/client';
 import { Toast } from 'antd-mobile';
@@ -13,6 +13,20 @@ export const useProductTypes = () => {
   };
 };
 
+// 获取当前定位
+const getPosition = () => new Promise<{ latitude: number; longitude: number }>((r) => {
+  navigator.geolocation.getCurrentPosition((pos) => {
+    const { latitude, longitude } = pos.coords;
+    r({ latitude, longitude });
+  }, () => {
+    r({ latitude: 0, longitude: 0 });
+  }, {
+    timeout: 3000, // 请求接口的超时时间
+    maximumAge: 30 * 60 * 1000, // 设置半个小时
+  });
+});
+
+// 首页商品卡片列表
 export const useProducts = (
   name = '',
   type = '',
@@ -31,11 +45,18 @@ export const useProducts = (
       icon: 'loading',
       content: '加载中...',
     });
+
+    const {
+      latitude,
+      longitude,
+    } = await getPosition();
     const res = await get({
       fetchPolicy: 'network-only', // 设置该接口不走缓存
       variables: {
         name,
         type: type === DEFAULT_TYPE ? '' : type,
+        longitude,
+        latitude,
         page: {
           pageNum,
           pageSize: DEFAULT_PAGE_SIZE,
@@ -74,4 +95,18 @@ export const useProducts = (
     loadMore: onLoadMoreHandler,
     hasMore,
   };
+};
+
+// 门店详情 - 推荐商品
+export const useProductsByOrgId = (orgId: string) => {
+  const { data } = useQuery<TProductsQuery>(
+    GET_PRODUCTS_BY_ORG_ID,
+    {
+      variables: {
+        orgId,
+      },
+    },
+  );
+
+  return data?.getProductsByOrgIdForH5.data;
 };

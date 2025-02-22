@@ -1,8 +1,10 @@
 import { useParams } from 'react-router-dom';
 import { useOrganization } from '@/services/org';
 import { Result } from 'antd-mobile';
+import Hr from '@/components/Hr';
 import BaseInfo from './components/BaseInfo';
 import DescInfo from './components/DescInfo';
+import RecommendProducts from './components/RecommendProducts';
 
 const OrgInfo = () => {
   const { id } = useParams();
@@ -13,8 +15,10 @@ const OrgInfo = () => {
   return (
     <div>
       <BaseInfo data={data} />
-
+      <Hr />
       <DescInfo data={data} />
+      <Hr />
+      <RecommendProducts orgId={id || ''} />
     </div>
   );
 };
