@@ -23,6 +23,9 @@ importers:
       graphql:
         specifier: 16.6.0
         version: 16.6.0
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
       md5:
         specifier: 2.3.0
         version: 2.3.0

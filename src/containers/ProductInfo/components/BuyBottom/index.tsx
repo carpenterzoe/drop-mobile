@@ -1,8 +1,8 @@
 import { Grid } from 'antd-mobile';
 import { PhoneFill } from 'antd-mobile-icons';
-// import { useGoTo } from '@/hooks';
-// import { ROUTE_KEY } from '@/routes/menus';
 // import { useUserContext } from '@/hooks/userHooks';
+import { useGoTo } from '@/hooks';
+import { ROUTE_KEY } from '@/routes/menus';
 import style from './index.module.less';
 
 interface IProps {
@@ -15,11 +15,11 @@ const BuyBottom = ({
   data,
 }: IProps) => {
   // const { store } = useUserContext();
-  // const { go } = useGoTo();
+  const { go } = useGoTo();
   const goBuy = () => {
-    // go(ROUTE_KEY.BUY, {
-    //   id: data.id,
-    // });
+    go(ROUTE_KEY.BUY, {
+      id: data.id,
+    });
   };
   return (
     <Grid columns={10} className={style.container}>
