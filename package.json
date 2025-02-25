@@ -15,6 +15,7 @@
     "antd-mobile": "5.26.0",
     "antd-mobile-icons": "0.3.0",
     "classnames": "2.3.2",
+    "dayjs": "^1.11.13",
     "graphql": "16.6.0",
     "lodash": "^4.17.21",
     "md5": "2.3.0",

@@ -17,6 +17,7 @@ export const ROUTE_KEY = {
   ORG_INFO: 'OrgInfo',
   PRODUCT_INFO: 'productInfo',
   BUY: 'buy',
+  MY_CARD: 'myCard',
 };
 
 /**
@@ -50,6 +51,11 @@ export const ROUTE_CONFIG: Record<string, IRoute> = {
   [ROUTE_KEY.BUY]: {
     path: 'buy/:id',
     name: '购买信息',
+    isMenu: false,
+  },
+  [ROUTE_KEY.MY_CARD]: {
+    path: 'myCard',
+    name: '我的消费卡',
     isMenu: false,
   },
 };
