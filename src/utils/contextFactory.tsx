@@ -14,7 +14,7 @@ import {
 interface IStore<T> {
   key: string,
   store: T,
-  setStore: () => void,
+  setStore: (payload: Record<string, any>) => void;
 }
 
 // ? 2. ctx 的provider怎么取， 怎么包裹子组件
