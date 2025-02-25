@@ -1,105 +1,59 @@
-import { useMutation } from '@apollo/client';
-import {
-  Button, Form, Input, ImageUploader,
-} from 'antd-mobile';
-import classNames from 'classnames';
-import { useUploadOSS } from '@/hooks/useUploadOSS';
-import { COMMIT_STUDENT_INFO } from '@/graphql/user';
-import { showFail, showSuccess } from '@/utils';
-// import { useEffect } from 'react';
-// import { useUserContext } from '@/hooks/userHooks';
+import { Grid, Image, List } from 'antd-mobile';
+import { useUserContext } from '@/hooks/userHooks';
+import { useGoTo } from '@/hooks';
+import { ROUTE_KEY } from '@/routes/menus';
+import { BankcardOutline } from 'antd-mobile-icons';
 import style from './index.module.less';
-
-const App = () => {
-  const uploadHandler = useUploadOSS();
-  const [commit] = useMutation(COMMIT_STUDENT_INFO);
-  const [form] = Form.useForm();
-  // const { store } = useUserContext();
-  // useEffect(() => {
-  //   if (!store.tel) return;
-  //   form.setFieldsValue({
-  //     tel: store.tel,
-  //     name: store.name,
-  //     desc: store.desc,
-  //     avatar: [{
-  //       url: store.avatar,
-  //     }],
-  //   });
-  // }, [store]);
-
-  const onClickHandler = async (v: IStudent & { avatar: [{ url:string }] }) => {
-    const res = await commit(
-      {
-        variables: {
-          params: {
-            ...v,
-            avatar: v.avatar[0]?.url,
-          },
-        },
-      },
-    );
-    if (res.data.commitStudentInfo.code === 200) {
-      showSuccess(res.data.commitStudentInfo.message);
-      return;
-    }
-    showFail(res.data.commitStudentInfo.message);
-  };
-
+/**
+*   个人信息页面
+*/
+const My = () => {
+  const { go } = useGoTo();
+  const { store } = useUserContext();
   return (
     <div className={style.container}>
-      <div className={style.logo}>
-        <img src="https://water-drop-assets.oss-cn-hangzhou.aliyuncs.com/images/henglogo.png" alt="" />
-      </div>
-      <Form
-        // layout="horizontal"
-        form={form}
-        className={classNames(style.form, style.formPadding)}
-        onFinish={onClickHandler}
-        footer={(
-          <Button block type="submit" color="primary" size="large">
-            提交
-          </Button>
-      )}
-      >
-        <Form.Item
-          name="name"
-          label="昵称"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input />
-        </Form.Item>
-        <Form.Item
-          name="tel"
-          label="手机号"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <Input type="number" />
-        </Form.Item>
-        <Form.Item
-          name="avatar"
-          label="头像"
-          rules={[
-            {
-              required: true,
-            },
-          ]}
-        >
-          <ImageUploader
-            maxCount={1}
-            upload={uploadHandler}
+      <Grid columns={10} className={style.card}>
+        <Grid.Item span={4}>
+          <Image
+            className={style.avatar}
+            src={store.avatar}
+            alt="个人头像"
           />
-        </Form.Item>
-      </Form>
+        </Grid.Item>
+        <Grid.Item span={6}>
+          <div className={style.name}>
+            {store.name}
+          </div>
+          <div
+            className={style.edit}
+            onClick={() => go(ROUTE_KEY.EDIT_INFO)}
+          >
+            编辑资料
+          </div>
+        </Grid.Item>
+      </Grid>
+      <List className={style.list}>
+        {/* <List.Item
+          prefix={<UnorderedListOutline />}
+          onClick={() => go(ROUTE_KEY.ORDER_COURSE)}
+        >
+          预约课程
+        </List.Item>
+        <List.Item
+          prefix={<UnorderedListOutline />}
+          onClick={() => go(ROUTE_KEY.MY_COURSE)}
+        >
+          我的课程表
+        </List.Item> */}
+        <List.Item
+          prefix={<BankcardOutline />}
+          onClick={() => go(ROUTE_KEY.MY_CARD)}
+        >
+          我的消费卡
+        </List.Item>
+      </List>
     </div>
   );
 };
 
-export default App;
+export default My;

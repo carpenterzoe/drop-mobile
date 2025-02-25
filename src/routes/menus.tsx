@@ -13,6 +13,7 @@ interface IRoute {
 // 如果用字符串匹配，到处都要修改，尤其是微前端跨项目的场景，前缀经常变动，修改很麻烦，很容易遗漏
 export const ROUTE_KEY = {
   HOME: 'home',
+  EDIT_INFO: 'editInfo',
   MY: 'my',
   ORG_INFO: 'OrgInfo',
   PRODUCT_INFO: 'productInfo',
@@ -37,6 +38,11 @@ export const ROUTE_CONFIG: Record<string, IRoute> = {
     name: '我的',
     isMenu: true,
     icon: mySvg,
+  },
+  [ROUTE_KEY.EDIT_INFO]: {
+    path: 'editInfo',
+    name: '编辑个人信息',
+    isMenu: false,
   },
   [ROUTE_KEY.ORG_INFO]: {
     path: 'orgInfo/:id',
