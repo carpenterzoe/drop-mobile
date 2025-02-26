@@ -2,7 +2,7 @@ import { Grid, Image, List } from 'antd-mobile';
 import { useUserContext } from '@/hooks/userHooks';
 import { useGoTo } from '@/hooks';
 import { ROUTE_KEY } from '@/routes/menus';
-import { BankcardOutline } from 'antd-mobile-icons';
+import { BankcardOutline, UnorderedListOutline } from 'antd-mobile-icons';
 import style from './index.module.less';
 /**
 *   个人信息页面
@@ -33,13 +33,13 @@ const My = () => {
         </Grid.Item>
       </Grid>
       <List className={style.list}>
-        {/* <List.Item
+        <List.Item
           prefix={<UnorderedListOutline />}
           onClick={() => go(ROUTE_KEY.ORDER_COURSE)}
         >
           预约课程
         </List.Item>
-        <List.Item
+        {/* <List.Item
           prefix={<UnorderedListOutline />}
           onClick={() => go(ROUTE_KEY.MY_COURSE)}
         >

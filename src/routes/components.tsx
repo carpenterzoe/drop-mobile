@@ -1,11 +1,11 @@
 import Home from '@/containers/Home';
-// import EditInfo from '@/containers/EditInfo';
 import OrgInfo from '@/containers/OrgInfo';
 import ProductInfo from '@/containers/ProductInfo';
 import Buy from '@/containers/Buy';
 import MyCard from '@/containers/MyCard';
 import EditInfo from '@/containers/EditInfo';
 import My from '@/containers/My';
+import OrderCourse from '@/containers/OrderCourse';
 import { ROUTE_KEY } from './menus';
 
 /**
@@ -20,4 +20,5 @@ export const ROUTE_COMPONENT = {
   [ROUTE_KEY.PRODUCT_INFO]: ProductInfo,
   [ROUTE_KEY.BUY]: Buy,
   [ROUTE_KEY.MY_CARD]: MyCard,
+  [ROUTE_KEY.ORDER_COURSE]: OrderCourse,
 };

@@ -19,6 +19,7 @@ export const ROUTE_KEY = {
   PRODUCT_INFO: 'productInfo',
   BUY: 'buy',
   MY_CARD: 'myCard',
+  ORDER_COURSE: 'orderCourse',
 };
 
 /**
@@ -62,6 +63,11 @@ export const ROUTE_CONFIG: Record<string, IRoute> = {
   [ROUTE_KEY.MY_CARD]: {
     path: 'myCard',
     name: '我的消费卡',
+    isMenu: false,
+  },
+  [ROUTE_KEY.ORDER_COURSE]: {
+    path: 'orderCourse',
+    name: '预约课程',
     isMenu: false,
   },
 };
