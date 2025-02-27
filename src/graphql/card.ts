@@ -31,3 +31,28 @@ query getCardRecordsForH5($page: PageInput!){
   }
 }
 `;
+
+// 获取当前用户在某个课程下可用的消费卡
+export const GET_USE_CARDS = gql`
+query getUseCardRecordsByCourse($courseId: String!){
+  getUseCardRecordsByCourse(courseId: $courseId){
+    code
+    message
+    data {
+      id
+      startTime
+      endTime
+      buyTime
+      status
+      residueTime
+      card {
+        id
+        name
+        type
+      }
+    }
+    page {
+      total
+    }
+  }
+}`;
