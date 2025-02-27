@@ -15,3 +15,5 @@ interface IOrganization {
 }
 
 type TOrgQuery = TBaseQuery<IOrganization>;
+
+type TOrgsQuery = TBaseQuery<IOrganization[]>;

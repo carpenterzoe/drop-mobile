@@ -9,12 +9,7 @@ query getCanSubscribeCourses {
       name
       courses {
         id
-        coverUrl
         name
-        teachers {
-          id
-          name
-        }
       }
     }
   }
