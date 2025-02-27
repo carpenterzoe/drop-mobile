@@ -5,15 +5,14 @@ import {
 import { Step } from 'antd-mobile/es/components/steps/step';
 import { useState } from 'react';
 import CourseList from './components/CourseList';
+import SubscribePopup from './components/SubscribePopup';
 import style from './index.module.less';
-// import SubscribePopup from './components/SubscribePopup';
 
 /**
 *   预约课程
 */
 const OrderCourse = () => {
   const [curCourse, setCurCourse] = useState<string>('');
-  console.log('curCourse: ', curCourse);
   const [showPopup, setShowPopup] = useState<boolean>(false);
   const { data, loading } = useCanSubscribeCourses();
   const onSubscribeHandler = (id: string) => {
@@ -71,8 +70,7 @@ const OrderCourse = () => {
         onMaskClick={onCloseHandler}
         onClose={onCloseHandler}
       >
-        gdfgfg
-        {/* {curCourse && <SubscribePopup courseId={curCourse} onClose={onCloseHandler} />} */}
+        {curCourse && <SubscribePopup courseId={curCourse} onClose={onCloseHandler} />}
       </Popup>
     </div>
   );
