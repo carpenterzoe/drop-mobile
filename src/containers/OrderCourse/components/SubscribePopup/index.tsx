@@ -9,6 +9,7 @@ import { useMemo, useState } from 'react';
 import dayjs from 'dayjs';
 import { getWeekZh } from '@/utils';
 import { useUseCards } from '@/services/card';
+import ConsumeCard from '../ConsumeCard';
 import style from './index.module.less';
 
 interface IProps {
@@ -28,7 +29,7 @@ const SubscribePopup = ({
   const [selectSchedule, setSelectSchedule] = useState<string[]>([]);
 
   const { data: cards } = useUseCards(courseId); // 获取该课程下的消费卡
-  console.log('cards: ', cards);
+  const [selectCard, setSelectCard] = useState<string[]>([]);
 
   const weeks = useMemo(() => {
     const w = [];
@@ -53,10 +54,16 @@ const SubscribePopup = ({
     return w;
   }, [schedules]);
 
+  // 可使用的消费卡
+  // ? 注意这里的写法，把组件包在useMemo里，具体作用是什么？
+  // ? 如果不包裹，常规是怎么写
+  const newCards = useMemo(() => cards?.map((item) => ({
+    label: <ConsumeCard dataSource={item} />,
+    value: item.id,
+  })), [cards]);
+
   const subscribeHandler = async () => {
-    console.log('selectSchedule', selectSchedule);
-    // || selectCard.length === 0
-    if (selectSchedule.length === 0) {
+    if (selectSchedule.length === 0 || selectCard.length === 0) {
       Toast.show({
         content: '请选择对应的上课时间和消费卡',
       });
@@ -79,6 +86,11 @@ const SubscribePopup = ({
         ))}
       </Tabs>
       <Divider>请选择消费卡</Divider>
+      <Selector
+        columns={1}
+        onChange={(arr) => setSelectCard(arr)}
+        options={newCards || []}
+      />
       <Divider />
       <Button
         color="primary"
