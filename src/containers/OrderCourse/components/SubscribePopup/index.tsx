@@ -4,7 +4,7 @@ import {
   Tabs,
   Toast,
 } from 'antd-mobile';
-import { useSchedulesByCourse } from '@/services/schedule';
+import { useSchedulesByCourse, useSubscribeCourse } from '@/services/schedule';
 import { useMemo, useState } from 'react';
 import dayjs from 'dayjs';
 import { getWeekZh } from '@/utils';
@@ -30,6 +30,8 @@ const SubscribePopup = ({
 
   const { data: cards } = useUseCards(courseId); // 获取该课程下的消费卡
   const [selectCard, setSelectCard] = useState<string[]>([]);
+
+  const { subscribe, loading } = useSubscribeCourse();
 
   const weeks = useMemo(() => {
     const w = [];
@@ -67,9 +69,19 @@ const SubscribePopup = ({
       Toast.show({
         content: '请选择对应的上课时间和消费卡',
       });
+      return;
     }
-
-    onClose();
+    const res = await subscribe(selectSchedule[0], selectCard[0]);
+    if (res?.code === 200) {
+      Toast.show({
+        content: res.message,
+      });
+      onClose();
+      return;
+    }
+    Toast.show({
+      content: res?.message,
+    });
   };
   return (
     <div className={style.container}>
@@ -94,6 +106,7 @@ const SubscribePopup = ({
       <Divider />
       <Button
         color="primary"
+        loading={loading}
         className={style.button}
         onClick={subscribeHandler}
       >
