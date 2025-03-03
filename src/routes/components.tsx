@@ -6,6 +6,7 @@ import MyCard from '@/containers/MyCard';
 import EditInfo from '@/containers/EditInfo';
 import My from '@/containers/My';
 import OrderCourse from '@/containers/OrderCourse';
+import MyCourse from '@/containers/MyCourse';
 import { ROUTE_KEY } from './menus';
 
 /**
@@ -21,4 +22,5 @@ export const ROUTE_COMPONENT = {
   [ROUTE_KEY.BUY]: Buy,
   [ROUTE_KEY.MY_CARD]: MyCard,
   [ROUTE_KEY.ORDER_COURSE]: OrderCourse,
+  [ROUTE_KEY.MY_COURSE]: MyCourse,
 };

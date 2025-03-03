@@ -51,15 +51,10 @@ query getScheduleRecords($page: PageInput!) {
         schoolDay
         startTime
         endTime
-        teacher {
-          name
-          id
-        }
       }
       status
       course {
         name
-        coverUrl
       }
       org {
         name

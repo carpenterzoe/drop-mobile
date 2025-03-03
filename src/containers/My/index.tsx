@@ -4,9 +4,7 @@ import { useGoTo } from '@/hooks';
 import { ROUTE_KEY } from '@/routes/menus';
 import { BankcardOutline, UnorderedListOutline } from 'antd-mobile-icons';
 import style from './index.module.less';
-/**
-*   个人信息页面
-*/
+
 const My = () => {
   const { go } = useGoTo();
   const { store } = useUserContext();
@@ -39,12 +37,12 @@ const My = () => {
         >
           预约课程
         </List.Item>
-        {/* <List.Item
+        <List.Item
           prefix={<UnorderedListOutline />}
           onClick={() => go(ROUTE_KEY.MY_COURSE)}
         >
           我的课程表
-        </List.Item> */}
+        </List.Item>
         <List.Item
           prefix={<BankcardOutline />}
           onClick={() => go(ROUTE_KEY.MY_CARD)}

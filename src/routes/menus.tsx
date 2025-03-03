@@ -20,6 +20,7 @@ export const ROUTE_KEY = {
   BUY: 'buy',
   MY_CARD: 'myCard',
   ORDER_COURSE: 'orderCourse',
+  MY_COURSE: 'myCourse',
 };
 
 /**
@@ -68,6 +69,11 @@ export const ROUTE_CONFIG: Record<string, IRoute> = {
   [ROUTE_KEY.ORDER_COURSE]: {
     path: 'orderCourse',
     name: '预约课程',
+    isMenu: false,
+  },
+  [ROUTE_KEY.MY_COURSE]: {
+    path: 'myCourse',
+    name: '我的课程表',
     isMenu: false,
   },
 };

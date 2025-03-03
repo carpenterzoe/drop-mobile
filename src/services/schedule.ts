@@ -1,6 +1,8 @@
 import { useMutation, useQuery } from '@apollo/client';
 import {
+  CANCEL_SUBSCRIBE,
   GET_CAN_SUBSCRIBE_COURSES,
+  GET_SCHEDULE_RECORD,
   GET_SCHEDULES_BY_COURSE,
   SUBSCRIBE_COURSE,
 } from '@/graphql/schedule';
@@ -50,6 +52,41 @@ export const useSubscribeCourse = () => {
 
   return {
     subscribe: subscribeHandler,
+    loading,
+  };
+};
+
+// 获取我的课程表记录
+export const useScheduleRecords = () => {
+  const { data, refetch, loading } = useQuery<TScheduleRecordsQuery>(GET_SCHEDULE_RECORD, {
+    variables: {
+      page: {
+        pageNum: 1,
+        pageSize: 10,
+      },
+    },
+  });
+
+  return { data: data?.getScheduleRecords.data, loading, refetch };
+};
+
+// 立即取消预约课程
+export const useCancelSubscribeCourse = () => {
+  const [cancel, { loading }] = useMutation<TBaseQuery>(CANCEL_SUBSCRIBE);
+
+  const cancelHandler = async (
+    scheduleRecordId: string,
+  ) => {
+    const res = await cancel({
+      variables: {
+        scheduleRecordId,
+      },
+    });
+    return res.data?.cancelSubscribeCourse;
+  };
+
+  return {
+    cancel: cancelHandler,
     loading,
   };
 };
